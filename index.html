@@ -3,65 +3,574 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Contact Us</title>
+    <title>Creative Freelance Hub - Design & Development Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-image: url('https://example.com/anime-background.jpg'); /* Replace with your anime background image URL */
-            background-size: cover;
-            color: white;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Roboto', sans-serif;
         }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        .hero-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        h1 {
-            text-align: center;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        .service-card:hover {
+            transform: translateY(-10px);
+            transition: transform 0.3s ease;
         }
-        .contact-link {
-            display: block;
-            margin: 10px 0;
-            padding: 10px;
-            text-align: center;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
         }
-        .whatsapp {
-            background-color: #25D366;
+        .portfolio-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .discord {
-            background-color: #7289DA;
-        }
-        .instagram {
-            background-color: #E1306C;
-        }
-        .telegram {
-            background-color: #0088CC;
-        }
-        .contact-link:hover {
-            opacity: 0.8;
+        .portfolio-item:hover::after {
+            opacity: 1;
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-50">
 
-<div class="container">
-    <h1>Contact Us</h1>
-    <a href="https://wa.me/7736512393 " class="contact-link whatsapp">Contact on WhatsApp</a>
-    <a href="https://discord.gg/aj3q27rxge" class="contact-link discord">Join us on Discord</a>
-    <a href="https://www.instagram.com/yourinstagram" class="contact-link instagram">Follow us on Instagram</a>
-    <a href="https://t.me/yourtelegram" class="contact-link telegram">Connect on Telegram</a>
-</div>
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-indigo-600">Creative Freelance Hub</div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition">Home</a>
+                <a href="services.html" class="text-gray-700 hover:text-indigo-600 transition">Services</a>
+                <a href="portfolio.html" class="text-gray-700 hover:text-indigo-600 transition">Portfolio</a>
+                <a href="about.html" class="text-gray-700 hover:text-indigo-600 transition">About</a>
+                <a href="contact.html" class="text-gray-700 hover:text-indigo-600 transition">Contact</a>
+            </nav>
+            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-md hidden">
+            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Home</a>
+            <a href="services.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Services</a>
+            <a href="portfolio.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Portfolio</a>
+            <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">About</a>
+            <a href="contact.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-6">Unleash Your Creative Vision</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Specializing in graphic design, website development, custom thumbnails, logos, and more. Transform ideas into stunning visuals with our freelance expertise.</p>
+            <a href="get-started.html" class="bg-white text-indigo-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Get Started</a>
+            <div class="mt-12">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/60e400eb-1f03-4084-bc7e-8aa54c88e210.png" alt="Vibrant workspace with digital tablet displaying colorful graphic designs, surrounded by sketchpads and coffee cups in a modern studio environment" class="w-full h-64 object-cover rounded-lg shadow-lg" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/00a8b9ca-d4cd-46d3-a3e4-4828c7415cbe.png" alt="Photoshop software interface with creative editing tools and color palettes on a computer screen in a dimly lit room" class="w-full h-48 object-cover rounded mb-4" />
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Graphic Editing</h3>
+                    <p class="text-gray-600">Expert photo and image editing, retouching, and manipulation to perfect your visuals.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/61701a1b-b418-4ee4-92cb-abc9bdd96e77.png" alt="Modern responsive website layout displaying on a desktop and mobile device side by side with clean typography and navigation menus" class="w-full h-48 object-cover rounded mb-4" />
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Website Development</h3>
+                    <p class="text-gray-600">Build stunning, responsive websites tailored to your needs with modern technologies.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/dd62a436-f75a-44ac-b58e-2c9a797fed33.png" alt="Collection of eye-catching video thumbnails featuring movie posters, gaming elements, and social media graphics in a stacked arrangement" class="w-full h-48 object-cover rounded mb-4" />
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Thumbnails Creation</h3>
+                    <p class="text-gray-600">Design captivating video thumbnails that boost clicks and engagement.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/993b1df2-90b7-4316-89e8-6add13613b16.png" alt="Assortment of business logos including shields, letters, and abstract designs displayed on white background with color variations" class="w-full h-48 object-cover rounded mb-4" />
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Logo Creation</h3>
+                    <p class="text-gray-600">Craft unique, memorable logos for businesses and brands.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4e29343e-3752-469c-b871-f688a97bec42.png" alt="Dynamic band logo featuring electric guitar, drummer silhouette, and musical notes intertwined with fire elements in bold black and red hues" class="w-full h-48 object-cover rounded mb-4" />
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Band Logos</h3>
+                    <p class="text-gray-600">Design edgy, distinctive logos for music bands and artists.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e1ba4409-5133-4a50-9f06-ee211fd7f198.png" alt="Collage of creative projects including illustrations, branding, and digital art pieces arranged in a mosaic pattern" class="w-full h-48 object-cover rounded mb-4" />
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">And More...</h3>
+                    <p class="text-gray-600">Custom illustrations, branding, digital art, and specialized design services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-indigo-600 text-white text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-6">Ready to Start Your Project?</h2>
+            <p class="text-xl mb-8">Let's turn your ideas into reality with our creative expertise.</p>
+            <a href="get-started.html" class="bg-white text-indigo-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2023 Creative Freelance Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 
 </body>
 </html>
+</content>
+</create_file>
+
+<create_file>
+<path>get-started.html</path>
+<content>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started - Creative Freelance Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .form-bg {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-indigo-600">Creative Freelance Hub</div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition">Home</a>
+                <a href="services.html" class="text-gray-700 hover:text-indigo-600 transition">Services</a>
+                <a href="portfolio.html" class="text-gray-700 hover:text-indigo-600 transition">Portfolio</a>
+                <a href="about.html" class="text-gray-700 hover:text-indigo-600 transition">About</a>
+                <a href="contact.html" class="text-gray-700 hover:text-indigo-600 transition">Contact</a>
+            </nav>
+            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-md hidden">
+            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Home</a>
+            <a href="services.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Services</a>
+            <a href="portfolio.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Portfolio</a>
+            <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">About</a>
+            <a href="contact.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-6">Get Started with Your Project</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Take the first step towards bringing your vision to life. Fill out our simple form and we'll get back to you with a personalized proposal.</p>
+        </div>
+    </section>
+
+    <!-- Get Started Form -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <form id="get-started-form" class="bg-gray-50 p-8 rounded-lg shadow-md">
+                    <div class="mb-6">
+                        <label for="name" class="block text-gray-700 font-semibold mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="phone" class="block text-gray-700 font-semibold mb-2">Phone Number (Optional)</label>
+                        <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                    </div>
+                    <div class="mb-6">
+                        <label for="service" class="block text-gray-700 font-semibold mb-2">Service Interested In</label>
+                        <select id="service" name="service" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
+                            <option value="">Select a service</option>
+                            <option value="graphic-editing">Graphic Editing</option>
+                            <option value="website-development">Website Development</option>
+                            <option value="thumbnails">Thumbnails Creation</option>
+                            <option value="logos">Logo Creation</option>
+                            <option value="band-logos">Band Logos</option>
+                            <option value="other">Other Services</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label for="budget" class="block text-gray-700 font-semibold mb-2">Estimated Budget</label>
+                        <select id="budget" name="budget" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
+                            <option value="">Select budget range</option>
+                            <option value="under-500">Under $500</option>
+                            <option value="500-1000">$500 - $1000</option>
+                            <option value="1000-2500">$1000 - $2500</option>
+                            <option value="2500-5000">$2500 - $5000</option>
+                            <option value="over-5000">Over $5000</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label for="timeline" class="block text-gray-700 font-semibold mb-2">Project Timeline</label>
+                        <select id="timeline" name="timeline" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
+                            <option value="">Select timeline</option>
+                            <option value="urgent-1-week">Urgent - 1 week</option>
+                            <option value="2-4-weeks">2-4 weeks</option>
+                            <option value="1-2-months">1-2 months</option>
+                            <option value="flexible">Flexible</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label for="details" class="block text-gray-700 font-semibold mb-2">Project Details</label>
+                        <textarea id="details" name="details" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Describe your project idea, goals, and any specific requirements..." required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-6 rounded font-semibold hover:bg-indigo-700 transition">Submit Your Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">How It Works</h2>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="bg-indigo-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Submit Form</h3>
+                    <p class="text-gray-600">Fill out our quick form with your project details.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-indigo-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Get Quote</h3>
+                    <p class="text-gray-600">Receive a personalized quote and timeline.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-indigo-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Approve Design</h3>
+                    <p class="text-gray-600">Review and approve mockups or drafts.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-indigo-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Launch</h3>
+                    <p class="text-gray-600">Get your final deliverables and go live!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2023 Creative Freelance Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Form submission
+        const getStartedForm = document.getElementById('get-started-form');
+        getStartedForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for submitting your request! We will contact you within 24 hours with a personalized quote.');
+            getStartedForm.reset();
+        });
+    </script>
+
+</body>
+</html>
+</content>
+</create_file>
+
+<create_file>
+<path>services.html</path>
+<content>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Creative Freelance Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-indigo-600">Creative Freelance Hub</div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition">Home</a>
+                <a href="services.html" class="text-gray-700 hover:text-indigo-600 transition">Services</a>
+                <a href="portfolio.html" class="text-gray-700 hover:text-indigo-600 transition">Portfolio</a>
+                <a href="about.html" class="text-gray-700 hover:text-indigo-600 transition">About</a>
+                <a href="contact.html" class="text-gray-700 hover:text-indigo-600 transition">Contact</a>
+            </nav>
+            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-md hidden">
+            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Home</a>
+            <a href="services.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Services</a>
+            <a href="portfolio.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Portfolio</a>
+            <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">About</a>
+            <a href="contact.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Contact</a>
+        </div>
+    </header>
+
+    <!-- Services Header -->
+    <section class="bg-indigo-600 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-6">Our Services</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Explore our wide range of creative and development services designed to bring your ideas to life.</p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/00a8b9ca-d4cd-46d3-a3e4-4828c7415cbe.png" alt="Photoshop software interface with creative editing tools and color palettes on a computer screen in a dimly lit room" class="w-full h-64 object-cover rounded mb-6" />
+                    <h3 class="text-3xl font-semibold mb-4 text-gray-800">Graphic Editing</h3>
+                    <p class="text-lg text-gray-600 mb-6">Expert photo and image editing, retouching, and manipulation to perfect your visuals. Whether it's a portrait, product photo, or creative composite, we ensure pixel-perfect results.</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-6">
+                        <li>Photo retouching and enhancement</li>
+                        <li>Background removal and replacement</li>
+                        <li>Composite image creation</li>
+                        <li>Color correction and grading</li>
+                    </ul>
+                    <button onclick="location.href='get-started.html'" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition">Get Quote</button>
+                </div>
+                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/61701a1b-b418-4ee4-92cb-abc9bdd96e77.png" alt="Modern responsive website layout displaying on a desktop and mobile device side by side with clean typography and navigation menus" class="w-full h-64 object-cover rounded mb-6" />
+                    <h3 class="text-3xl font-semibold mb-4 text-gray-800">Website Development</h3>
+                    <p class="text-lg text-gray-600 mb-6">Build stunning, responsive websites tailored to your needs with modern technologies like HTML5, CSS3, JavaScript, and frameworks.</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-6">
+                        <li>Custom website design and development</li>
+                        <li>Mobile-responsive layouts</li>
+                        <li>e-commerce integration</li>
+                        <li>SEO-optimized code</li>
+                    </ul>
+                    <button onclick="location.href='get-started.html'" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition">Get Quote</button>
+                </div>
+                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/dd62a436-f75a-44ac-b58e-2c9a797fed33.png" alt="Collection of eye-catching video thumbnails featuring movie posters, gaming elements, and social media graphics in a stacked arrangement" class="w-full h-64 object-cover rounded mb-6" />
+                    <h3 class="text-3xl font-semibold mb-4 text-gray-800">Thumbnails Creation</h3>
+                    <p class="text-lg text-gray-600 mb-6">Design captivating video thumbnails that boost clicks and engagement. Perfect for YouTube, Vimeo, or any video platform.</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-6">
+                        <li>Custom thumbnail design</li>
+                        <li>Brand-consistent visuals</li>
+                        <li>High-resolution outputs</li>
+                        <li>Multiple concepts to choose from</li>
+                    </ul>
+                    <button onclick="location.href='get-started.html'" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition">Get Quote</button>
+                </div>
+                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/993b1df2-90b7-4316-89e8-6add13613b16.png" alt="Assortment of business logos including shields, letters, and abstract designs displayed on white background with color variations" class="w-full h-64 object-cover rounded mb-6" />
+                    <h3 class="text-3xl font-semibold mb-4 text-gray-800">Logo Creation</h3>
+                    <p class="text-lg text-gray-600 mb-6">Craft unique, memorable logos for businesses and brands. We create logos that are timeless, scalable, and impactful.</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-6">
+                        <li>Conceptual logo design</li>
+                        <li>Brand identity guidelines</li>
+                        <li>Vector format delivery</li>
+                        <li>Unlimited revisions</li>
+                    </ul>
+                    <button onclick="location.href='get-started.html'" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition">Get Quote</button>
+                </div>
+                <!-- Additional Services -->
+                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c394b3f3-da41-4936-90c5-ecd56389bfc4.png" alt="Creative band logo with electric guitar, microphone, and musical elements in vibrant colors on a dark background representing rock music vibe" class="w-full h-64 object-cover rounded mb-6"/>
+                    <h3 class="text-3xl font-semibold mb-4 text-gray-800">Band Logotypes</h3>
+                    <p class="text-lg text-gray-600 mb-6">Specialized logo design for music bands with edgy, distinctive styles that capture your unique sound and personality.</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-6">
+                        <li>Genre-specific designs</li>
+                        <li>Musical elements integration</li>
+                        <li>Typography that screams your brand</li>
+                        <li>Scalable for merch and albums</li>
+                    </ul>
+                    <button onclick="location.href='get-started.html'" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition">Get Quote</button>
+                </div>
+                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8ce724ab-555a-42f6-b379-e72b2ec85e82.png" alt="Vivid digital illustration of fictional characters in a fantastical scene with bold colors, intricate details, and creative compositions showcasing artistic skill" class="w-full h-64 object-cover rounded mb-6"/>
+                    <h3 class="text-3xl font-semibold mb-4 text-gray-800">Digital Art & Illustrations</h3>
+                    <p class="text-lg text-gray-600 mb-6">Create custom illustrations, character designs, and digital artwork perfect for books, games, marketing, or personal projects.</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-6">
+                        <li>Character and concept art</li>
+                        <li>Brand illustrations</li>
+                        <li>Infographics and diagrams</li>
+                        <li>Storyboard illustrations</li>
+                    </ul>
+                    <button onclick="location.href='get-started.html'" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition">Get Quote</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2023 Creative Freelance Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
+</content>
+</create_file>
+
+<create_file>
+<path>portfolio.html</path>
+<content>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Creative Freelance Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .portfolio-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .portfolio-item:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-indigo-600">Creative Freelance Hub</div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition">Home</a>
+                <a href="services.html" class="text-gray-700 hover:text-indigo-600 transition">Services</a>
+                <a href="portfolio.html" class="text-gray-700 hover:text-indigo-600 transition">Portfolio</a>
+                <a href="about.html" class="text-gray-700 hover:text-indigo-600 transition">About</a>
+                <a href="contact.html" class="text-gray-700 hover:text-indigo-600 transition">Contact</a>
+            </nav>
+            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-md hidden">
+            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Home</a>
+            <a href="services.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Services</a>
+            <a href="portfolio.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Portfolio</a>
+            <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">About</a>
+            <a href="contact.html" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50">Contact</a>
+        </div>
+    </header>
+
+    <!-- Portfolio Header -->
+    <section class="bg-indigo-600 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-6">Our Portfolio</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Explore our diverse collection of creative projects that showcase our expertise in design and development.</p>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e1ba1cb3-ed46-413d-a270-4da22fde7fac.png" alt="Detailed website mockup for e-commerce site featuring sleek product gallery and navigation bar with minimalist design elements" class="w-full h-64 object-cover" />
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4">
+                        <h3 class="font-semibold">E-Commerce Website</h3>
+                        <p>Responsive design with product catalog</p>
+                    </div>
+                </div>
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/58aa3193-47d0-4b6d-b54f-8830698d5fcc.png" alt="Professional business logo with clean lines, modern typography, and corporate color scheme in blue and gray tones" class="w-full h-64 object-cover" />
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4">
+                        <h3 class="font-semibold">Corporate Logo</h3>
+                        <p>Brand identity for tech startup</p>
+                    </div>
+                </div>
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1b5065e2-4dbe-4d27-9a42-3129d94095c8.png" alt="Intricate band logo featuring tribal patterns, skull motifs, and electric guitar outlined in stark black on white background" class="w-full h-64 object-cover" />
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4">
+                        <h3 class="font-semibold">Rock Band Logo</h3>
+                        <p>Edgy design for heavy metal band</p>
+                    </div>
+                </div>
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/82bae2d7-e1f5-44d3-abda-8d3e7cbff673.png" alt="Elegant coffee cup logo with steam curling upward, mahogany brown colors, and vintage typography for a cozy cafe brand identity" class="w-full h-64 object-cover" />
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4">
+                        <h3 class="font-semibold">Café Brand Identity</h3>
+                        <p>Logo and menu design for local shop</p>
+                    </div>
+                </div>
+                <div class="portfolio-item rounded-lg overflow-hidden shadow
