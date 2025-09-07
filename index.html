@@ -35,7 +35,7 @@
     .section{margin-top:40px}
     .section-title{font-size:clamp(20px,4vw,24px);font-weight:700;margin-bottom:14px;text-align:center}
     .grid{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
       gap:16px;
     }
     .card{
@@ -43,9 +43,15 @@
       border-radius:10px;overflow:hidden;
       border:1px solid rgba(255,255,255,0.05);
       transition:transform .2s;
+      text-align:center;
     }
     .card:hover{transform:translateY(-5px)}
-    .thumb{width:100%;height:0;padding-bottom:56.25%;background-size:cover;background-position:center}
+    .card img{
+      width:100%;
+      height:160px; /* Thumbnail ki height fix */
+      object-fit:cover; /* Image crop karke clean thumbnail dikhayega */
+      display:block;
+    }
 
     /* Contact */
     .contact-card{margin-top:50px;padding:20px;background:rgba(255,255,255,0.02);border-radius:10px}
@@ -67,6 +73,7 @@
       .container{padding:16px}
       .hero{padding:20px}
       .btn{padding:8px 14px;font-size:14px}
+      .card img{height:140px}
     }
   </style>
 </head>
@@ -79,42 +86,31 @@
       <a class="btn" href="#contact">Contact Me</a>
     </header>
 
-    <!-- Editing Section -->
-    <section class="section">
-      <div class="section-title">Editing</div>
-      <div class="grid">
-        <div class="card">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/WNyhRcKV/wnyhrckv.jpg')"></div>
-        </div>
-        <div class="card">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/1tnxcY0D/1tnxcy0d.jpg')"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Brand Logos Section -->
-    <section class="section">
-      <div class="section-title">Brand Logos</div>
-      <div class="grid">
-        <div class="card">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/HDLp2RSf/hdlp2rsf.jpg')"></div>
-        </div>
-        <div class="card">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/s9rqD4pF/s9rqd4pf.jpg')"></div>
-        </div>
-      </div>
-    </section>
-
     <!-- Thumbnails Section -->
     <section class="section">
       <div class="section-title">Thumbnails</div>
       <div class="grid">
-        <div class="card">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/0y58V9r4/0y58v9r4.jpg')"></div>
-        </div>
-        <div class="card">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/s9gtJCT1/s9gtjct1.jpg')"></div>
-        </div>
+        <a class="card" href="https://ibb.co/WNyhRcKV" target="_blank">
+          <img src="https://i.ibb.co/WNyhRcKV/wnyhrckv.jpg" alt="Thumbnail 1">
+        </a>
+        <a class="card" href="https://ibb.co/1tnxcY0D" target="_blank">
+          <img src="https://i.ibb.co/1tnxcY0D/1tnxcy0d.jpg" alt="Thumbnail 2">
+        </a>
+        <a class="card" href="https://ibb.co/2YM9bt9m" target="_blank">
+          <img src="https://i.ibb.co/2YM9bt9m/2ym9bt9m.jpg" alt="Thumbnail 3">
+        </a>
+        <a class="card" href="https://ibb.co/HDLp2RSf" target="_blank">
+          <img src="https://i.ibb.co/HDLp2RSf/hdlp2rsf.jpg" alt="Thumbnail 4">
+        </a>
+        <a class="card" href="https://ibb.co/s9rqD4pF" target="_blank">
+          <img src="https://i.ibb.co/s9rqD4pF/s9rqd4pf.jpg" alt="Thumbnail 5">
+        </a>
+        <a class="card" href="https://ibb.co/0y58V9r4" target="_blank">
+          <img src="https://i.ibb.co/0y58V9r4/0y58v9r4.jpg" alt="Thumbnail 6">
+        </a>
+        <a class="card" href="https://ibb.co/s9gtJCT1" target="_blank">
+          <img src="https://i.ibb.co/s9gtJCT1/s9gtjct1.jpg" alt="Thumbnail 7">
+        </a>
       </div>
     </section>
 
