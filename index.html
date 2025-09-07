@@ -3,145 +3,176 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Owais Qarni — Video Editor & Motion Graphics</title>
-  <meta name="description" content="Portfolio of Owais Qarni — Video Editing, Brand Logos & Voice Projects" />
+  <title>Owais Qarni — Portfolio</title>
+  <meta name="description" content="Portfolio of Owais Qarni — Video Editing, Brand Logos, Thumbnails" />
   <style>
     :root{
       --bg1: #060606;
       --bg2: #120707;
       --accent: #ff3b3b;
       --accent2: #ffb86b;
-      --glass: rgba(255,255,255,0.035);
-      --card: #0b0b0b;
-      --glow: 0 6px 30px rgba(255,59,59,0.12);
-      --neon-glow: 0 0 18px rgba(255,59,59,0.14);
       --white: #efefef;
+      --card: #0b0b0b;
     }
-    *{box-sizing:border-box}
+    *{box-sizing:border-box;margin:0;padding:0}
     body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 400px at 10% 20%, rgba(255,59,59,0.06), transparent),
-                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
       color:var(--white);
-      line-height:1.4;
-      padding-bottom:80px;
+      line-height:1.5;
     }
-    .container{max-width:1100px;margin:30px auto;padding:24px}
+    .container{max-width:1100px;margin:auto;padding:20px}
 
-    header.hero{
-      display:flex;gap:24px;align-items:center;justify-content:space-between;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:36px;border-radius:12px;
-      border:1px solid rgba(255,255,255,0.03);
-      box-shadow: var(--glow);
+    /* Header */
+    header{
+      text-align:center;
+      padding:40px 20px;
     }
-    .hero .title{font-size:clamp(22px,5vw,36px);font-weight:700;}
-    .hero .subtitle{color:rgba(255,255,255,0.72);margin-top:8px;font-size:14px}
-    .hero .actions{display:flex;gap:12px}
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;padding:10px 16px;
-      border:1px solid rgba(255,255,255,0.08);border-radius:999px;
-      color:var(--white);cursor:pointer;text-decoration:none;font-weight:600;font-size:14px;
-      transition:transform .18s ease, box-shadow .18s;
+    header h1{
+      font-size:clamp(24px,6vw,40px);
+      font-weight:700;
+      margin-bottom:10px;
     }
-    .btn.primary{
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      box-shadow:var(--neon-glow);border:0;color:#0a0a0a;
-    }
+    header p{color:rgba(255,255,255,0.7)}
 
-    .section{margin-top:36px;padding:24px 18px;border-radius:10px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border:1px solid rgba(255,255,255,0.02);}
-    .section-title{font-weight:900;font-size:28px;margin-bottom:18px;color:var(--white);
-      text-shadow:0 0 30px rgba(255,59,59,0.12);}
-    .subtitle-muted{color:rgba(255,255,255,0.65);font-size:13px;margin-bottom:12px}
+    /* Section */
+    .section{margin-top:40px}
+    .section h2{
+      font-size:28px;
+      margin-bottom:15px;
+      text-align:center;
+    }
+    .subtitle{color:rgba(255,255,255,0.6);font-size:14px;text-align:center;margin-bottom:20px}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:16px;
+    }
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-      border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
-      cursor:pointer;transition:transform .22s ease, box-shadow .22s;
+      background:var(--card);
+      border-radius:10px;
+      overflow:hidden;
+      transition:transform .2s ease, box-shadow .2s ease;
     }
-    .card:hover{transform:translateY(-6px);box-shadow:var(--glow)}
-    .thumb{display:block;width:100%;height:0;padding-bottom:56.25%;
-      background-size:cover;background-position:center;}
-    .card .meta{padding:12px 14px}
-    .meta h4{margin:0;font-size:15px}
-    .meta p{margin:4px 0 0 0;color:rgba(255,255,255,0.6);font-size:13px}
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 4px 20px rgba(0,0,0,0.6);
+    }
+    .card img{
+      width:100%;
+      display:block;
+      cursor:pointer;
+    }
+    .card .meta{padding:12px;text-align:center}
+    .card .meta h4{margin:0;font-size:16px}
+    .card .meta p{margin-top:4px;font-size:13px;color:rgba(255,255,255,0.6)}
 
-    footer{text-align:center;color:rgba(255,255,255,0.7);font-size:13px;margin-top:40px}
-    footer .glow-title{font-weight:900;font-size:20px;margin-bottom:12px;
-      text-shadow:0 0 28px rgba(255,59,59,0.12)}
+    /* Contact */
+    .contact{
+      margin-top:50px;
+      padding:20px;
+      background:rgba(255,255,255,0.03);
+      border-radius:10px;
+    }
+    .contact h2{text-align:center;margin-bottom:20px}
+    .contact p{margin:6px 0;text-align:center}
+    .contact a{color:var(--accent2);text-decoration:none}
+
+    /* Footer */
+    footer{text-align:center;padding:20px;color:rgba(255,255,255,0.6);margin-top:40px;font-size:14px}
   </style>
 </head>
 <body>
   <div class="container">
+
     <!-- HERO -->
-    <header class="hero">
-      <div>
-        <div class="title">Owais Qarni — Video Editor & Motion Graphics</div>
-        <div class="subtitle">Editing • Brand Logos • Voice Projects</div>
-      </div>
-      <div class="actions">
-        <a class="btn primary" href="#portfolio">View Portfolio</a>
-        <a class="btn" href="#contact">Contact</a>
-      </div>
+    <header>
+      <h1>Owais Qarni — Portfolio</h1>
+      <p>Video Editing · Brand Logos · Thumbnails</p>
     </header>
 
-    <!-- EDITING SECTION -->
-    <section class="section" id="portfolio">
-      <div class="section-title">Editing</div>
-      <div class="subtitle-muted">Video edits for YouTube, Reels & Shorts</div>
+    <!-- Editing Section -->
+    <section class="section">
+      <h2>Editing</h2>
+      <div class="subtitle">Creative Edits and Video Projects</div>
       <div class="grid">
-        <div class="card" onclick="window.open('https://youtube.com/watch?v=VIDEO1','_blank')">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/WNyhRcKV/wnyhrckv.jpg')"></div>
+        <div class="card">
+          <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID1" target="_blank">
+            <img src="https://i.ibb.co/WNyhRcKV" alt="Edit 1">
+          </a>
           <div class="meta"><h4>Edit 1</h4><p>YouTube / Reels</p></div>
         </div>
-        <div class="card" onclick="window.open('https://youtube.com/watch?v=VIDEO2','_blank')">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/1tnxcY0D/1tnxcy0d.jpg')"></div>
-          <div class="meta"><h4>Edit 2</h4><p>Social Edit</p></div>
+        <div class="card">
+          <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID2" target="_blank">
+            <img src="https://i.ibb.co/1tnxcY0D" alt="Edit 2">
+          </a>
+          <div class="meta"><h4>Edit 2</h4><p>Social Content</p></div>
+        </div>
+        <div class="card">
+          <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID3" target="_blank">
+            <img src="https://i.ibb.co/2YM9bt9m" alt="Edit 3">
+          </a>
+          <div class="meta"><h4>Edit 3</h4><p>Story / Teaser</p></div>
         </div>
       </div>
     </section>
 
-    <!-- BRAND LOGOS SECTION -->
+    <!-- Brand Logos Section -->
     <section class="section">
-      <div class="section-title">Brand Logos</div>
-      <div class="subtitle-muted">Logo animations & branding work</div>
+      <h2>Brand Logos</h2>
+      <div class="subtitle">Custom brand identity and logo animations</div>
       <div class="grid">
-        <div class="card" onclick="window.open('https://youtube.com/watch?v=VIDEO3','_blank')">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/HDLp2RSf/hdlp2rsf.jpg')"></div>
-          <div class="meta"><h4>Logo 1</h4><p>Brand Animation</p></div>
+        <div class="card">
+          <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID4" target="_blank">
+            <img src="https://i.ibb.co/HDLp2RSf" alt="Logo 1">
+          </a>
+          <div class="meta"><h4>Logo 1</h4><p>Animated Logo</p></div>
         </div>
-        <div class="card" onclick="window.open('https://youtube.com/watch?v=VIDEO4','_blank')">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/s9rqD4pF/s9rqd4pf.jpg')"></div>
-          <div class="meta"><h4>Logo 2</h4><p>Corporate Identity</p></div>
+        <div class="card">
+          <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID5" target="_blank">
+            <img src="https://i.ibb.co/s9rqD4pF" alt="Logo 2">
+          </a>
+          <div class="meta"><h4>Logo 2</h4><p>Corporate Logo</p></div>
         </div>
       </div>
     </section>
 
-    <!-- VOICE SECTION -->
+    <!-- Thumbnails Section -->
     <section class="section">
-      <div class="section-title">Voice</div>
-      <div class="subtitle-muted">Voice-over synced projects</div>
+      <h2>Thumbnails</h2>
+      <div class="subtitle">Eye-catching YouTube thumbnails</div>
       <div class="grid">
-        <div class="card" onclick="window.open('https://youtube.com/watch?v=VIDEO5','_blank')">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/0y58V9r4/0y58v9r4.jpg')"></div>
-          <div class="meta"><h4>Voice Project 1</h4><p>Explainer Video</p></div>
+        <div class="card">
+          <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID6" target="_blank">
+            <img src="https://i.ibb.co/0y58V9r4" alt="Thumbnail 1">
+          </a>
+          <div class="meta"><h4>Thumbnail 1</h4><p>For YouTube</p></div>
         </div>
-        <div class="card" onclick="window.open('https://youtube.com/watch?v=VIDEO6','_blank')">
-          <div class="thumb" style="background-image:url('https://i.ibb.co/s9gtJCT1/s9gtjct1.jpg')"></div>
-          <div class="meta"><h4>Voice Project 2</h4><p>Promo Video</p></div>
+        <div class="card">
+          <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID7" target="_blank">
+            <img src="https://i.ibb.co/s9gtJCT1" alt="Thumbnail 2">
+          </a>
+          <div class="meta"><h4>Thumbnail 2</h4><p>Custom Design</p></div>
         </div>
       </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:Owaisqarni1934@gmail.com">Owaisqarni1934@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/917736512393" target="_blank">+91 7736512393</a></p>
+      <p>Instagram: Owais Qarni</p>
+      <p>Facebook: Owais Qarni</p>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <div class="glow-title">Thank You for Watching</div>
-      <div class="muted">— Owais Qarni · <a href="mailto:Owaisqarni1934@gmail.com">Owaisqarni1934@gmail.com</a> —</div>
+      © 2025 Owais Qarni — All Rights Reserved
     </footer>
+
   </div>
 </body>
 </html>
