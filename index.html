@@ -23,17 +23,17 @@
     .container{max-width:1100px;margin:30px auto;padding:24px}
     header.hero{
       background:rgba(255,255,255,0.02);padding:30px;border-radius:12px;
-      border:1px solid rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.05);text-align:center;
     }
-    .hero .title{font-size:30px;font-weight:700}
-    .hero .subtitle{color:rgba(255,255,255,0.7);margin-top:8px}
+    .hero .title{font-size:clamp(22px,5vw,32px);font-weight:700}
+    .hero .subtitle{color:rgba(255,255,255,0.7);margin-top:8px;font-size:clamp(14px,3vw,16px)}
     .btn{
       display:inline-block;padding:10px 18px;margin-top:14px;
       background:linear-gradient(90deg,var(--accent),var(--accent2));
       border-radius:6px;color:#000;text-decoration:none;font-weight:600;
     }
     .section{margin-top:40px}
-    .section-title{font-size:24px;font-weight:700;margin-bottom:14px}
+    .section-title{font-size:clamp(20px,4vw,24px);font-weight:700;margin-bottom:14px;text-align:center}
     .grid{
       display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
       gap:16px;
@@ -46,22 +46,33 @@
     }
     .card:hover{transform:translateY(-5px)}
     .thumb{width:100%;height:0;padding-bottom:56.25%;background-size:cover;background-position:center}
-    .meta{padding:12px}
+    .meta{padding:12px;text-align:center}
     .meta h4{margin:0;font-size:15px}
     .meta p{margin:4px 0 0;font-size:13px;color:rgba(255,255,255,0.7)}
 
     /* Contact */
     .contact-card{margin-top:50px;padding:20px;background:rgba(255,255,255,0.02);border-radius:10px}
+    .contact-card h2{text-align:center;margin-bottom:10px}
     label{display:block;margin:10px 0 6px;font-size:13px}
     input,textarea{
       width:100%;padding:10px;border-radius:6px;
       border:1px solid rgba(255,255,255,0.1);
-      background:rgba(255,255,255,0.05);color:var(--white)
+      background:rgba(255,255,255,0.05);color:var(--white);font-size:14px
     }
     textarea{min-height:100px}
     button{margin-top:12px;padding:10px 16px;border:0;border-radius:6px;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));font-weight:600;cursor:pointer}
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      font-weight:600;cursor:pointer;width:100%;max-width:200px;display:block;margin-left:auto;margin-right:auto}
     footer{text-align:center;margin-top:40px;color:rgba(255,255,255,0.6);font-size:13px}
+
+    /* Responsive Tweaks */
+    @media (max-width:600px){
+      .container{padding:16px}
+      .hero{padding:20px}
+      .meta h4{font-size:14px}
+      .meta p{font-size:12px}
+      .btn{padding:8px 14px;font-size:14px}
+    }
   </style>
 </head>
 <body>
@@ -121,8 +132,8 @@
     <!-- Contact -->
     <section class="contact-card" id="contact">
       <h2>Contact</h2>
-      <p>Email: <a href="mailto:Owaisqarni1934@gmail.com">Owaisqarni1934@gmail.com</a></p>
-      <p>WhatsApp: <a href="https://wa.me/917736512393" target="_blank">+91 7736512393</a></p>
+      <p style="text-align:center">Email: <a href="mailto:Owaisqarni1934@gmail.com">Owaisqarni1934@gmail.com</a></p>
+      <p style="text-align:center">WhatsApp: <a href="https://wa.me/917736512393" target="_blank">+91 7736512393</a></p>
 
       <form onsubmit="return handleContact(event)">
         <label for="name">Name</label>
