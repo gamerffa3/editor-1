@@ -1,158 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Live Chat 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif;}
-    body {background:#0f0f12; color:white; display:flex; justify-content:center; align-items:center; height:100vh;}
-    .chat-container {
-      width:100%; max-width:500px; height:90vh; display:flex; flex-direction:column;
-      background:#1c1c21; border-radius:20px; overflow:hidden; box-shadow:0 0 20px rgba(0,0,0,0.6);
-    }
-    .chat-header {
-      padding:15px; background:#111; text-align:center; font-weight:600; font-size:18px;
-      border-bottom:1px solid #333;
-    }
-    .messages {
-      flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;
-      scroll-behavior:smooth;
-    }
-    .msg {
-      display:flex; align-items:flex-start; gap:10px; animation:fadeIn 0.3s ease;
-    }
-    .msg img.avatar {
-      width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid #444;
-    }
-    .msg-content {
-      background:#2a2a31; padding:10px 14px; border-radius:12px; max-width:70%;
-      word-wrap:break-word; position:relative;
-    }
-    .msg-content img {
-      max-width:200px; border-radius:10px; margin-top:5px;
-    }
-    .msg-user {font-size:12px; font-weight:600; margin-bottom:3px; color:#87cefa;}
-    .msg-time {font-size:10px; color:#aaa; margin-top:3px; text-align:right;}
-    .chat-input {
-      display:flex; align-items:center; padding:10px; background:#111; gap:10px; border-top:1px solid #333;
-    }
-    .chat-input input[type="text"] {
-      flex:1; padding:10px; border:none; border-radius:20px; outline:none;
-      background:#2a2a31; color:white; font-size:14px;
-    }
-    .chat-input button {
-      background:#4a90e2; border:none; padding:10px 16px; border-radius:50%; cursor:pointer;
-      transition:0.2s; display:flex; justify-content:center; align-items:center;
-    }
-    .chat-input button:hover {background:#357ABD;}
-    input[type="file"] {display:none;}
-    .upload-label {
-      cursor:pointer; font-size:20px; color:#4a90e2; transition:0.2s;
-    }
-    .upload-label:hover {color:#87cefa;}
-    @keyframes fadeIn {from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Chat</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-dark: #0056b3;
+            --background-color: #e6e9ed;
+            --card-background: #ffffff;
+            --my-message-color: #007bff;
+            --other-message-color: #e5e5ea;
+            --other-message-text-color: #333;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #chat-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--card-background);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 12px 18px;
+            border-radius: 20px;
+            max-width: 80%;
+            word-wrap: break-word;
+            font-size: 1rem;
+            line-height: 1.4;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .my-message {
+            background-color: var(--my-message-color);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .other-message {
+            background-color: var(--other-message-color);
+            color: var(--other-message-text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        #message-form {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #e0e0e0;
+            background-color: var(--card-background);
+            gap: 10px;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #message-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        #message-form button {
+            padding: 12px 20px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        #message-form button:hover {
+            background-color: var(--primary-dark);
+        }
+    </style>
 </head>
 <body>
-<div class="chat-container">
-  <div class="chat-header">💬 Live Chat 2025</div>
-  <div class="messages" id="messages"></div>
-  <div class="chat-input">
-    <label for="fileInput" class="upload-label">📎</label>
-    <input type="file" id="fileInput" accept="image/*">
-    <input type="text" id="messageInput" placeholder="Type a message...">
-    <button id="sendBtn">➡️</button>
-  </div>
-</div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js"></script>
+    <div id="chat-container">
+        <div id="messages">
+            </div>
+        <form id="message-form">
+            <input id="message-input" type="text" placeholder="Type a message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
 
-<script>
-  // ✅ Your Firebase config (corrected storageBucket)
-  const firebaseConfig = {
-    apiKey: "AIzaSyAjL1omdchULI1lrVNO19RF5A7rCxGmLr0",
-    authDomain: "chatting-6990e.firebaseapp.com",
-    databaseURL: "https://chatting-6990e-default-rtdb.firebaseio.com",
-    projectId: "chatting-6990e",
-    storageBucket: "chatting-6990e.appspot.com",
-    messagingSenderId: "101948604647",
-    appId: "1:101948604647:web:e6d7814ffaab87fdf8e242",
-    measurementId: "G-CQDEHTM67V"
-  };
-
-  // ✅ Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-  const storage = firebase.storage();
-
-  const messagesRef = db.ref("messages");
-
-  const messagesDiv = document.getElementById("messages");
-  const messageInput = document.getElementById("messageInput");
-  const sendBtn = document.getElementById("sendBtn");
-  const fileInput = document.getElementById("fileInput");
-
-  // 🔹 Current User (Temporary: random avatar + name)
-  const currentUser = {
-    name: "User" + Math.floor(Math.random()*1000),
-    avatar: `https://api.dicebear.com/9.x/thumbs/svg?seed=${Math.random()}`
-  };
-
-  // Send text message
-  function sendMessage(type, content) {
-    const msg = {
-      user: currentUser.name,
-      avatar: currentUser.avatar,
-      type: type,
-      content: content,
-      time: new Date().toLocaleTimeString()
-    };
-    messagesRef.push(msg);
-  }
-
-  sendBtn.addEventListener("click", () => {
-    if(messageInput.value.trim() !== ""){
-      sendMessage("text", messageInput.value);
-      messageInput.value = "";
-    }
-  });
-
-  // Send image
-  fileInput.addEventListener("change", e => {
-    const file = e.target.files[0];
-    if(file){
-      const storageRef = storage.ref("chatImages/" + Date.now() + "-" + file.name);
-      storageRef.put(file).then(snapshot => {
-        snapshot.ref.getDownloadURL().then(url => {
-          sendMessage("image", url);
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAjL1omdchULI1lrVNO19RF5A7rCxGmLr0",
+            authDomain: "chatting-6990e.firebaseapp.com",
+            databaseURL: "https://chatting-6990e-default-rtdb.firebaseio.com",
+            projectId: "chatting-6990e",
+            storageBucket: "chatting-6990e.firebasestorage.app",
+            messagingSenderId: "101948604647",
+            appId: "1:101948604647:web:e6d7814ffaab87fdf8e242",
+            measurementId: "G-CQDEHTM67V"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const messagesRef = database.ref('messages');
+        const messagesContainer = document.getElementById('messages');
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+        
+        messagesRef.on('child_added', (snapshot) => {
+            const message = snapshot.val();
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message.text;
+            messageElement.classList.add('message');
+            
+            // For a single user, all messages will appear as 'other-message'.
+            // For a multi-user chat, you would add logic to check the sender's ID.
+            messageElement.classList.add('other-message');
+            
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
-      });
-    }
-  });
 
-  // Load messages in real-time
-  messagesRef.on("child_added", snap => {
-    const data = snap.val();
-    const div = document.createElement("div");
-    div.classList.add("msg");
-
-    div.innerHTML = `
-      <img src="${data.avatar}" class="avatar">
-      <div class="msg-content">
-        <div class="msg-user">${data.user}</div>
-        ${data.type === "text" ? data.content : `<img src="${data.content}">`}
-        <div class="msg-time">${data.time}</div>
-      </div>
-    `;
-    messagesDiv.appendChild(div);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-  });
-</script>
+        messageForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                messagesRef.push({
+                    text: messageText,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
+                });
+                messageInput.value = '';
+            }
+        });
+    </script>
 </body>
 </html>
