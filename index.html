@@ -1,231 +1,216 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord-Style Chat</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <style>
-        :root {
-            --background-color: #36393f;
-            --chat-background: #32353a;
-            --message-bg: #40444b;
-            --input-bg: #4d4f54;
-            --text-color: #dcddde;
-            --text-color-light: #72767d;
-            --primary-color: #7289da;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        
-        #chat-container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--chat-background);
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minecraft Server Launcher — Updates & Download</title>
+  <style>
+    :root{
+      --bg:#0f1720; --card:#0b1220; --muted:#9aa6b2; --accent:#3b82f6; --accent-2:#06b6d4;
+      --surface:#0b1220; --success:#10b981;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071017 0%, #071723 100%);color:#e6eef6;}
+    .wrap{max-width:1100px;margin:28px auto;padding:20px;}
+    header{display:flex;gap:14px;align-items:center;}
+    .logo{width:84px;height:84px;border-radius:14px;overflow:hidden;flex:0 0 84px;box-shadow:0 6px 20px rgba(0,0,0,0.6);background:#08121a}
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 0;color:var(--muted);font-size:13px}
 
-        #messages {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px;border-radius:10px;box-shadow: 0 6px 20px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .small{font-size:13px;padding:8px 10px;border-radius:8px}
 
-        .message {
-            background-color: var(--message-bg);
-            padding: 10px;
-            border-radius: 8px;
-            max-width: 80%;
-            word-wrap: break-word;
-            line-height: 1.4;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-            align-self: flex-start;
-        }
-        
-        .message.my-message {
-            background-color: var(--primary-color);
-            align-self: flex-end;
-        }
+    .muted{color:var(--muted);font-size:13px}
+    .console{background:#031422;border-radius:8px;padding:12px;height:300px;overflow:auto;font-family:ui-monospace,monospace;font-size:12px;color:#cfe8ff;border:1px solid rgba(255,255,255,0.03)}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .chip{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
 
-        .message-content img, .message-content video {
-            max-width: 100%;
-            max-height: 250px;
-            border-radius: 8px;
-            margin-top: 5px;
-        }
+    .right-col .card + .card{margin-top:12px}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
 
-        .message-content .text {
-            color: var(--text-color);
-        }
-
-        #message-form {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background-color: var(--chat-background);
-            border-top: 1px solid #2f3136;
-        }
-
-        #message-form button, #file-input-label {
-            background-color: transparent;
-            border: none;
-            color: var(--text-color-light);
-            cursor: pointer;
-            padding: 10px;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-
-        #message-form button:hover, #file-input-label:hover {
-            color: var(--text-color);
-        }
-
-        #message-input {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 20px;
-            background-color: var(--input-bg);
-            color: var(--text-color);
-            font-size: 1rem;
-            outline: none;
-            margin: 0 5px;
-        }
-
-        /* Hide the default file input button */
-        #file-input {
-            display: none;
-        }
-    </style>
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr; }
+      .logo{width:64px;height:64px}
+    }
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <!-- Developer: replace this path with served URL if needed -->
+        <img src="/mnt/data/A_2D_digital_vector_illustration_icon_features_a_s.png" alt="Launcher Logo" id="logoImg">
+      </div>
+      <div>
+        <h1>Minecraft Server Launcher</h1>
+        <p class="lead">Profiles, auto-start, console viewer — download & updates page. (Syncthing shared folders recommended for multi-PC hosting)</p>
+        <div class="meta">
+          <div class="chip">Version: <strong id="currentVersion">v1.0.0</strong></div>
+          <div class="chip">Platform: Windows</div>
+          <div class="chip">Built: <span id="buildDate">—</span></div>
+        </div>
+      </div>
+    </header>
 
-    <div id="chat-container">
-        <div id="messages">
-            </div>
-        <form id="message-form">
-            <label for="file-input" id="file-input-label">
-                <i class="fas fa-plus-circle"></i>
-            </label>
-            <input type="file" id="file-input" accept="image/*,video/*" />
+    <div class="grid">
+      <!-- left: main -->
+      <div>
+        <div class="card">
+          <h3>Download</h3>
+          <p class="muted">Click below to download the launcher. Make sure your browser or antivirus allows running the file. For best results, install Java (OpenJDK) and set up Syncthing for shared folders.</p>
+          <div class="actions">
+            <!-- change href to your hosted exe path -->
+            <a id="downloadBtn" class="btn" href="dist/launcher.exe" download>
+              ⬇️ Download Launcher
+            </a>
+            <button class="btn secondary small" id="checkUpdateBtn">Check for Updates</button>
+            <a class="btn secondary small" href="#" id="docsBtn">How to use (Docs)</a>
+          </div>
 
-            <input id="message-input" type="text" placeholder="Message..." autocomplete="off">
-            
-            <button type="submit"><i class="fas fa-paper-plane"></i></button>
-        </form>
+          <hr style="margin:12px 0;border:0;border-top:1px solid rgba(255,255,255,0.03)">
+
+          <h4>Latest release notes</h4>
+          <div id="changelog" class="muted" style="max-height:220px;overflow:auto;padding-top:6px">
+            <em>Press "Check for Updates" to load remote changelog.</em>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3>Quick Start</h3>
+          <ol class="muted">
+            <li>Download launcher and extract if needed.</li>
+            <li>Place it in a folder (recommended: <code>Desktop\MinecraftServer</code>).</li>
+            <li>Run launcher, create a profile and point folder to your Syncthing-shared folder.</li>
+            <li>Use <strong>Create Startup</strong> in launcher to auto-start on login or use Scheduled Task.</li>
+          </ol>
+
+          <h4 style="margin-top:10px">Syncthing tip</h4>
+          <p class="muted">Use Syncthing to sync the server folder between friends. Share the folder, accept on both sides, and select the local synced path in the launcher profile.</p>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3>Live Console (Demo)</h3>
+          <div id="console" class="console" aria-live="polite">
+            <div class="muted">Console output will appear here when server runs.</div>
+          </div>
+          <div style="margin-top:8px" class="muted">Note: This demo console shows updates from the local launcher only when connected via WebSocket or polling endpoint. Integrate with the launcher via a small local HTTP API for full live logs.</div>
+        </div>
+      </div>
+
+      <!-- right: sidebar -->
+      <aside class="right-col">
+        <div class="card">
+          <h3>Profile & Security</h3>
+          <p class="muted">Profiles are stored locally. You can password-protect a profile in the launcher to prevent accidental start/stop.</p>
+          <div class="actions" style="margin-top:8px">
+            <button class="btn small" id="openProfiles">Open Profiles Folder</button>
+            <button class="btn small secondary" id="openAppData">Open AppData</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Website & Updates</h3>
+          <p class="muted">This page can fetch update info from your server. Put a JSON at <code>/updates.json</code> and the button will show latest release notes.</p>
+          <div style="margin-top:8px" class="muted"><strong>Example updates.json format:</strong>
+          <pre style="background:rgba(255,255,255,0.02);padding:8px;border-radius:6px;color:#cfe8ff;font-size:12px">
+{
+  "version":"1.0.1",
+  "notes":"Fixed auto-start and UI polish",
+  "url":"https://example.com/downloads/launcher.exe",
+  "published":"2025-11-25"
+}
+          </pre>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Support</h3>
+          <p class="muted">Need help? Contact via email or host a small FAQ page.</p>
+          <div class="actions">
+            <a class="btn small" href="mailto:you@example.com">✉️ Email</a>
+            <a class="btn small secondary" href="#" id="faqBtn">FAQ</a>
+          </div>
+        </div>
+      </aside>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <footer>
+      © <span id="year"></span> Minecraft Server Launcher — Built with ❤️. Host files securely. Update your UPDATE_URL in launcher code for remote updates.
+    </footer>
+  </div>
 
-    <script>
-        // Your Firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyAjL1omdchULI1lrVNO19RF5A7rCxGmLr0",
-            authDomain: "chatting-6990e.firebaseapp.com",
-            databaseURL: "https://chatting-6990e-default-rtdb.firebaseio.com",
-            projectId: "chatting-6990e",
-            storageBucket: "chatting-6990e.firebasestorage.app",
-            messagingSenderId: "101948604647",
-            appId: "1:101948604647:web:e6d7814ffaab87fdf8e242",
-            measurementId: "G-CQDEHTM67V"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const storage = firebase.storage();
-        const messagesRef = database.ref('messages');
-        const messagesContainer = document.getElementById('messages');
-        const messageForm = document.getElementById('message-form');
-        const messageInput = document.getElementById('message-input');
-        const fileInput = document.getElementById('file-input');
+  <script>
+    // Configuration (change to your hosted values)
+    const UPDATE_URL = "/updates.json"; // replace with your real update JSON URL
+    const LAUNCHER_DOWNLOAD_PATH = "dist/launcher.exe"; // adjust if placed elsewhere
 
-        // Function to handle sending files
-        fileInput.addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('buildDate').textContent = (new Date()).toLocaleDateString();
 
-            const storageRef = storage.ref(`uploads/${Date.now()}_${file.name}`);
-            const uploadTask = storageRef.put(file);
+    document.getElementById('docsBtn').addEventListener('click', function(e){
+      e.preventDefault();
+      alert('Docs: Run the launcher → Create profile → Choose Syncthing folder → Start. For 24/7 create Scheduled Task or Windows Service (NSSM).');
+    });
 
-            uploadTask.on('state_changed',
-                (snapshot) => {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                },
-                (error) => {
-                    console.error("Upload failed:", error);
-                },
-                () => {
-                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                        console.log('File available at', downloadURL);
-                        const fileType = file.type.startsWith('image') ? 'image' : 'video';
-                        messagesRef.push({
-                            type: fileType,
-                            url: downloadURL,
-                            timestamp: firebase.database.ServerValue.TIMESTAMP
-                        });
-                    });
-                }
-            );
-        });
+    document.getElementById('openProfiles').addEventListener('click', function(){
+      // this will try to open a local path using window.location (works if served)
+      window.open('/appdata/', '_blank');
+    });
+    document.getElementById('openAppData').addEventListener('click', function(){
+      window.open('/appdata/', '_blank');
+    });
 
-        // Function to display messages (including images and videos)
-        messagesRef.on('child_added', (snapshot) => {
-            const message = snapshot.val();
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            
-            if (message.type === 'image') {
-                const img = document.createElement('img');
-                img.src = message.url;
-                messageElement.appendChild(img);
-            } else if (message.type === 'video') {
-                const video = document.createElement('video');
-                video.src = message.url;
-                video.controls = true;
-                messageElement.appendChild(video);
-            } else {
-                messageElement.textContent = message.text;
-            }
-            
-            messagesContainer.appendChild(messageElement);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        });
+    // Update check
+    document.getElementById('checkUpdateBtn').addEventListener('click', function(){
+      const btn = this;
+      btn.disabled = true;
+      btn.textContent = 'Checking...';
+      fetch(UPDATE_URL, {cache: "no-store"}).then(r => {
+        if(!r.ok) throw new Error('No update JSON found ('+r.status+')');
+        return r.json();
+      }).then(data => {
+        let html = `<strong>Latest:</strong> ${data.version} <br/><em>Published:</em> ${data.published || '-'}<br/><p>${data.notes || ''}</p>`;
+        if(data.url){
+          html += `<p><a class="btn" href="${data.url}" target="_blank">Download ${data.version}</a></p>`;
+        }
+        document.getElementById('changelog').innerHTML = html;
+      }).catch(err => {
+        document.getElementById('changelog').innerHTML = '<span style="color:#ffb4b4">Update check failed: '+err.message+'</span>';
+      }).finally(() => {
+        btn.disabled = false;
+        btn.textContent = 'Check for Updates';
+      });
+    });
 
-        // Function to handle sending a text message
-        messageForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const messageText = messageInput.value.trim();
-            if (messageText) {
-                messagesRef.push({
-                    type: 'text',
-                    text: messageText,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP
-                });
-                messageInput.value = '';
-            }
-        });
-    </script>
+    // Small demo "console" logger (client-side demo)
+    (function demoConsole(){
+      const c = document.getElementById('console');
+      const lines = [
+        "[INFO] Launcher ready.",
+        "[INFO] Profiles loaded from local storage.",
+        "[WARN] No remote update server configured.",
+        "[INFO] Use 'Download Launcher' to get the exe."
+      ];
+      let i=0;
+      setInterval(() => {
+        if(i < lines.length){
+          c.innerHTML += '<div style="opacity:0.95;color:#aee1ff;font-family:monospace;padding:2px 0">'+lines[i]+'</div>';
+          c.scrollTop = c.scrollHeight;
+          i++;
+        }
+      }, 700);
+    })();
+
+    // set logo fallback if not found
+    (function setLogoFallback(){
+      const img = document.getElementById('logoImg');
+      img.onerror = function(){ img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><rect width="100%" height="100%" fill="%23071b2a"/><text x="50%" y="50%" fill="%23ffffff" font-size="22" font-family="Arial" text-anchor="middle" dominant-baseline="middle">Launcher</text></svg>' }
+    })();
+  </script>
 </body>
 </html>
