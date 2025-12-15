@@ -1,216 +1,750 @@
-<!doctype html>
-<html lang="hi">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Minecraft Server Launcher — Updates & Download</title>
-  <style>
-    :root{
-      --bg:#0f1720; --card:#0b1220; --muted:#9aa6b2; --accent:#3b82f6; --accent-2:#06b6d4;
-      --surface:#0b1220; --success:#10b981;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071017 0%, #071723 100%);color:#e6eef6;}
-    .wrap{max-width:1100px;margin:28px auto;padding:20px;}
-    header{display:flex;gap:14px;align-items:center;}
-    .logo{width:84px;height:84px;border-radius:14px;overflow:hidden;flex:0 0 84px;box-shadow:0 6px 20px rgba(0,0,0,0.6);background:#08121a}
-    .logo img{width:100%;height:100%;object-fit:cover;display:block}
-    h1{margin:0;font-size:20px}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:13px}
-
-    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px;border-radius:10px;box-shadow: 0 6px 20px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    .small{font-size:13px;padding:8px 10px;border-radius:8px}
-
-    .muted{color:var(--muted);font-size:13px}
-    .console{background:#031422;border-radius:8px;padding:12px;height:300px;overflow:auto;font-family:ui-monospace,monospace;font-size:12px;color:#cfe8ff;border:1px solid rgba(255,255,255,0.03)}
-    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .chip{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
-
-    .right-col .card + .card{margin-top:12px}
-    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
-
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr; }
-      .logo{width:64px;height:64px}
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <div class="logo">
-        <!-- Developer: replace this path with served URL if needed -->
-        <img src="/mnt/data/A_2D_digital_vector_illustration_icon_features_a_s.png" alt="Launcher Logo" id="logoImg">
-      </div>
-      <div>
-        <h1>Minecraft Server Launcher</h1>
-        <p class="lead">Profiles, auto-start, console viewer — download & updates page. (Syncthing shared folders recommended for multi-PC hosting)</p>
-        <div class="meta">
-          <div class="chip">Version: <strong id="currentVersion">v1.0.0</strong></div>
-          <div class="chip">Platform: Windows</div>
-          <div class="chip">Built: <span id="buildDate">—</span></div>
-        </div>
-      </div>
-    </header>
-
-    <div class="grid">
-      <!-- left: main -->
-      <div>
-        <div class="card">
-          <h3>Download</h3>
-          <p class="muted">Click below to download the launcher. Make sure your browser or antivirus allows running the file. For best results, install Java (OpenJDK) and set up Syncthing for shared folders.</p>
-          <div class="actions">
-            <!-- change href to your hosted exe path -->
-            <a id="downloadBtn" class="btn" href="dist/launcher.exe" download>
-              ⬇️ Download Launcher
-            </a>
-            <button class="btn secondary small" id="checkUpdateBtn">Check for Updates</button>
-            <a class="btn secondary small" href="#" id="docsBtn">How to use (Docs)</a>
-          </div>
-
-          <hr style="margin:12px 0;border:0;border-top:1px solid rgba(255,255,255,0.03)">
-
-          <h4>Latest release notes</h4>
-          <div id="changelog" class="muted" style="max-height:220px;overflow:auto;padding-top:6px">
-            <em>Press "Check for Updates" to load remote changelog.</em>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <h3>Quick Start</h3>
-          <ol class="muted">
-            <li>Download launcher and extract if needed.</li>
-            <li>Place it in a folder (recommended: <code>Desktop\MinecraftServer</code>).</li>
-            <li>Run launcher, create a profile and point folder to your Syncthing-shared folder.</li>
-            <li>Use <strong>Create Startup</strong> in launcher to auto-start on login or use Scheduled Task.</li>
-          </ol>
-
-          <h4 style="margin-top:10px">Syncthing tip</h4>
-          <p class="muted">Use Syncthing to sync the server folder between friends. Share the folder, accept on both sides, and select the local synced path in the launcher profile.</p>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <h3>Live Console (Demo)</h3>
-          <div id="console" class="console" aria-live="polite">
-            <div class="muted">Console output will appear here when server runs.</div>
-          </div>
-          <div style="margin-top:8px" class="muted">Note: This demo console shows updates from the local launcher only when connected via WebSocket or polling endpoint. Integrate with the launcher via a small local HTTP API for full live logs.</div>
-        </div>
-      </div>
-
-      <!-- right: sidebar -->
-      <aside class="right-col">
-        <div class="card">
-          <h3>Profile & Security</h3>
-          <p class="muted">Profiles are stored locally. You can password-protect a profile in the launcher to prevent accidental start/stop.</p>
-          <div class="actions" style="margin-top:8px">
-            <button class="btn small" id="openProfiles">Open Profiles Folder</button>
-            <button class="btn small secondary" id="openAppData">Open AppData</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Website & Updates</h3>
-          <p class="muted">This page can fetch update info from your server. Put a JSON at <code>/updates.json</code> and the button will show latest release notes.</p>
-          <div style="margin-top:8px" class="muted"><strong>Example updates.json format:</strong>
-          <pre style="background:rgba(255,255,255,0.02);padding:8px;border-radius:6px;color:#cfe8ff;font-size:12px">
-{
-  "version":"1.0.1",
-  "notes":"Fixed auto-start and UI polish",
-  "url":"https://example.com/downloads/launcher.exe",
-  "published":"2025-11-25"
-}
-          </pre>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Support</h3>
-          <p class="muted">Need help? Contact via email or host a small FAQ page.</p>
-          <div class="actions">
-            <a class="btn small" href="mailto:you@example.com">✉️ Email</a>
-            <a class="btn small secondary" href="#" id="faqBtn">FAQ</a>
-          </div>
-        </div>
-      </aside>
-    </div>
-
-    <footer>
-      © <span id="year"></span> Minecraft Server Launcher — Built with ❤️. Host files securely. Update your UPDATE_URL in launcher code for remote updates.
-    </footer>
-  </div>
-
-  <script>
-    // Configuration (change to your hosted values)
-    const UPDATE_URL = "/updates.json"; // replace with your real update JSON URL
-    const LAUNCHER_DOWNLOAD_PATH = "dist/launcher.exe"; // adjust if placed elsewhere
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('buildDate').textContent = (new Date()).toLocaleDateString();
-
-    document.getElementById('docsBtn').addEventListener('click', function(e){
-      e.preventDefault();
-      alert('Docs: Run the launcher → Create profile → Choose Syncthing folder → Start. For 24/7 create Scheduled Task or Windows Service (NSSM).');
-    });
-
-    document.getElementById('openProfiles').addEventListener('click', function(){
-      // this will try to open a local path using window.location (works if served)
-      window.open('/appdata/', '_blank');
-    });
-    document.getElementById('openAppData').addEventListener('click', function(){
-      window.open('/appdata/', '_blank');
-    });
-
-    // Update check
-    document.getElementById('checkUpdateBtn').addEventListener('click', function(){
-      const btn = this;
-      btn.disabled = true;
-      btn.textContent = 'Checking...';
-      fetch(UPDATE_URL, {cache: "no-store"}).then(r => {
-        if(!r.ok) throw new Error('No update JSON found ('+r.status+')');
-        return r.json();
-      }).then(data => {
-        let html = `<strong>Latest:</strong> ${data.version} <br/><em>Published:</em> ${data.published || '-'}<br/><p>${data.notes || ''}</p>`;
-        if(data.url){
-          html += `<p><a class="btn" href="${data.url}" target="_blank">Download ${data.version}</a></p>`;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODULUS | Digital Agency</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #00d4ff;
+            --primary-purple: #9d4edd;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #05050a;
+            --card-bg: #11111f;
+            --text-light: #f0f0f0;
+            --text-muted: #a0a0b0;
         }
-        document.getElementById('changelog').innerHTML = html;
-      }).catch(err => {
-        document.getElementById('changelog').innerHTML = '<span style="color:#ffb4b4">Update check failed: '+err.message+'</span>';
-      }).finally(() => {
-        btn.disabled = false;
-        btn.textContent = 'Check for Updates';
-      });
-    });
-
-    // Small demo "console" logger (client-side demo)
-    (function demoConsole(){
-      const c = document.getElementById('console');
-      const lines = [
-        "[INFO] Launcher ready.",
-        "[INFO] Profiles loaded from local storage.",
-        "[WARN] No remote update server configured.",
-        "[INFO] Use 'Download Launcher' to get the exe."
-      ];
-      let i=0;
-      setInterval(() => {
-        if(i < lines.length){
-          c.innerHTML += '<div style="opacity:0.95;color:#aee1ff;font-family:monospace;padding:2px 0">'+lines[i]+'</div>';
-          c.scrollTop = c.scrollHeight;
-          i++;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
-      }, 700);
-    })();
-
-    // set logo fallback if not found
-    (function setLogoFallback(){
-      const img = document.getElementById('logoImg');
-      img.onerror = function(){ img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><rect width="100%" height="100%" fill="%23071b2a"/><text x="50%" y="50%" fill="%23ffffff" font-size="22" font-family="Arial" text-anchor="middle" dominant-baseline="middle">Launcher</text></svg>' }
-    })();
-  </script>
-</body>
-</html>
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-img {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .phone-button {
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .phone-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding-top: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.15) 0%, rgba(0, 212, 255, 0.05) 70%, transparent 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .hero-text {
+            max-width: 600px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .discord-btn {
+            background-color: #5865F2;
+            color: white;
+        }
+        
+        .instagram-btn {
+            background: linear-gradient(45deg, #405DE6, #E1306C, #F77737);
+            color: white;
+        }
+        
+        .social-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .floating-shapes {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 78, 221, 0.1));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape-1 {
+            width: 180px;
+            height: 180px;
+            top: 0;
+            left: 0;
+            animation-delay: 0s;
+        }
+        
+        .shape-2 {
+            width: 140px;
+            height: 140px;
+            bottom: 0;
+            right: 0;
+            animation-delay: 2s;
+        }
+        
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* About Section */
+        .about {
+            background-color: var(--darker-bg);
+            position: relative;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-text {
+            max-width: 600px;
+        }
+        
+        .about-highlights {
+            margin-top: 30px;
+        }
+        
+        .highlight {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .highlight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.2);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Team Section */
+        .team {
+            background-color: var(--darker-bg);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(157, 78, 221, 0.1);
+        }
+        
+        .member-img {
+            height: 250px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 78, 221, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .member-info {
+            padding: 25px;
+        }
+        
+        .member-role {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .member-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .expertise-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Roadmap Section */
+        .roadmap {
+            position: relative;
+        }
+        
+        .roadmap-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-blue), var(--primary-purple));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: calc(50% - 40px);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 70px;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 70px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            box-shadow: 0 0 0 5px rgba(0, 212, 255, 0.2);
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            right: -52px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -52px;
+        }
+        
+        .timeline-year {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        /* Why Choose Us */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .benefit-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 78, 221, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-blue);
+        }
+        
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(157, 78, 221, 0.05));
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 40px auto;
+            max-width: 900px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .cta h2 {
+            margin-bottom: 20px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--darker-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .nav-contact {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-content, .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-visual {
+                order: -1;
+                height: 300px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-right: 0 !important;
+                padding-left: 70px !important;
+                text-align: left !important;
+            }
+            
+            .timeline-item::before {
+                left: -52px !important;
+            }
+            
+            .roadmap-timeline::before {
+                left: 20px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+      
